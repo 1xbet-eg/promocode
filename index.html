@@ -10,50 +10,14 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <!-- Chart.js for charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: #F4F8FA;
-            color: #042E5F;
-            direction: rtl;
-        }
-        :root {
-            --primary-blue: #045ED6;
-            --primary-dark: #042E5F;
-            --accent-blue: #00BAFF;
-            --light-bg: #F1F5F9;
-            --white: #ffffff;
-            --gray-text: #64748B;
-            --border-light: #E2E8F0;
-            --success: #10b981;
-            --warning: #f59e0b;
-        }
-        .app-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            background: var(--white);
-            border-radius: 1.8rem;
-            padding: 0.8rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px -2px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-light);
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: #F4F8FA; color: #042E5F; direction: rtl; }
+        :root { --primary-blue: #045ED6; --primary-dark: #042E5F; --accent-blue: #00BAFF; --light-bg: #F1F5F9; --white: #ffffff; --gray-text: #64748B; --border-light: #E2E8F0; }
+        .app-container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .header { background: var(--white); border-radius: 1.8rem; padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 2rem; box-shadow: 0 4px 6px -2px rgba(0,0,0,0.05); border: 1px solid var(--border-light); }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-icon { font-size: 2rem; color: var(--primary-blue); }
         .logo-text { font-size: 1.6rem; font-weight: 800; }
@@ -61,111 +25,37 @@
         .user-greeting { background: var(--light-bg); padding: 8px 18px; border-radius: 40px; font-size: 0.9rem; font-weight: 600; }
         .admin-badge { background: #FFA500; color: #fff; border-radius: 30px; padding: 4px 12px; font-size: 0.7rem; font-weight: bold; margin-right: 8px; }
         .role-badge { background: #EFF6FF; color: var(--primary-blue); border-radius: 30px; padding: 4px 12px; font-size: 0.7rem; font-weight: bold; }
-        .login-card {
-            max-width: 480px;
-            margin: 60px auto;
-            background: var(--white);
-            border-radius: 2rem;
-            padding: 2.5rem;
-            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        .login-title { font-size: 2rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--primary-dark); }
+        .login-card { max-width: 480px; margin: 60px auto; background: var(--white); border-radius: 2rem; padding: 2.5rem; box-shadow: 0 20px 35px -8px rgba(0,0,0,0.1); text-align: center; }
+        .login-title { font-size: 2rem; font-weight: 800; margin-bottom: 1.5rem; }
         .input-group { margin-bottom: 1.2rem; text-align: right; }
-        .input-group input, .input-group select {
-            width: 100%;
-            padding: 14px 18px;
-            border: 1px solid var(--border-light);
-            border-radius: 1rem;
-            font-size: 1rem;
-            background: var(--light-bg);
-            font-family: 'Tajawal', sans-serif;
-        }
-        .btn {
-            background: var(--primary-blue);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 1.2rem;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-        }
+        .input-group input, .input-group select { width: 100%; padding: 14px 18px; border: 1px solid var(--border-light); border-radius: 1rem; font-size: 1rem; background: var(--light-bg); font-family: 'Tajawal', sans-serif; }
+        .btn { background: var(--primary-blue); color: white; border: none; padding: 12px 24px; border-radius: 1.2rem; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.2s; width: 100%; }
         .btn:hover { background: #2563EB; transform: translateY(-1px); }
         .btn-outline { background: transparent; border: 1.5px solid var(--primary-blue); color: var(--primary-blue); width: auto; }
         .btn-outline:hover { background: var(--primary-blue); color: white; }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-            margin-bottom: 2rem;
-        }
-        .stat-card {
-            background: var(--white);
-            border-radius: 1.5rem;
-            padding: 1.2rem;
-            text-align: center;
-            border: 1px solid var(--border-light);
-        }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 2rem; }
+        .stat-card { background: var(--white); border-radius: 1.5rem; padding: 1.2rem; text-align: center; border: 1px solid var(--border-light); }
         .stat-number { font-size: 2rem; font-weight: 800; color: var(--primary-blue); }
-        .promo-banner {
-            background: linear-gradient(135deg, #045ED6, #00BAFF);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            color: white;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        .promo-code {
-            background: rgba(255,255,255,0.2);
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 1.3rem;
-            letter-spacing: 1px;
-            margin-top: 8px;
-        }
-        .card-title { font-weight: 800; margin-bottom: 1rem; font-size: 1.2rem; color: var(--primary-dark); }
-        .withdraw-section {
-            background: var(--white);
-            border-radius: 1.8rem;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            border: 1px solid var(--border-light);
-        }
-        .methods-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin: 15px 0;
-        }
-        .method-badge {
-            background: var(--light-bg);
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
+        .promo-banner { background: linear-gradient(135deg, #045ED6, #00BAFF); border-radius: 1.5rem; padding: 1.5rem; color: white; margin-bottom: 2rem; text-align: center; }
+        .promo-code { background: rgba(255,255,255,0.2); display: inline-block; padding: 8px 20px; border-radius: 40px; font-weight: bold; font-size: 1.3rem; margin-top: 8px; }
+        .withdraw-section { background: var(--white); border-radius: 1.8rem; padding: 1.5rem; margin-top: 2rem; border: 1px solid var(--border-light); }
+        .methods-grid { display: flex; flex-wrap: wrap; gap: 12px; margin: 15px 0; }
+        .method-badge { background: var(--light-bg); padding: 6px 14px; border-radius: 30px; font-size: 0.8rem; font-weight: 500; }
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 12px 8px; text-align: center; border-bottom: 1px solid var(--border-light); }
         th { background: var(--light-bg); font-weight: 800; }
         .delete-btn { background: none; border: none; color: #e53e3e; cursor: pointer; font-size: 1.2rem; }
-        .edit-btn { background: none; border: none; color: var(--primary-blue); cursor: pointer; margin-left: 8px; }
-        @media (max-width: 768px) { .header { flex-direction: column; gap: 12px; } .stats-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) { .header { flex-direction: column; gap: 12px; } }
         footer { text-align: center; margin-top: 2rem; padding: 1rem; color: var(--gray-text); font-size: 0.8rem; }
         .chart-container { max-width: 100%; height: 250px; margin: 1rem 0; }
         .filter-buttons { display: flex; gap: 8px; margin: 15px 0; flex-wrap: wrap; }
         .filter-btn { background: var(--light-bg); border: none; padding: 6px 14px; border-radius: 30px; cursor: pointer; }
-        .filter-btn.active { background: var(--primary-blue); color: white; }
     </style>
 </head>
 <body>
 <div id="app" class="app-container"></div>
 <script>
-    // Firebase Config
+    // Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyBlWW8__LvlI5gan_LqOneVFh9FQYlfOM0",
         authDomain: "xbet-eg.firebaseapp.com",
@@ -179,13 +69,13 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
     const usersCollection = db.collection("app_users");
-    const statsCollection = db.collection("platform_stats"); // for admin to edit stats
+    const statsCollection = db.collection("platform_stats");
 
-    // Fixed admin credentials
+    // Fixed Admin Credentials (Hardcoded)
     const ADMIN_EMAIL = "admin";
     const ADMIN_PASSWORD = "admin";
 
-    // Helper functions
+    // ---------- Helper Functions ----------
     async function loginWithCredentials(email, password) {
         if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
             sessionStorage.setItem("admin_logged", "true");
@@ -197,6 +87,7 @@
             return { user: userCred.user, isAdmin: false };
         }
     }
+
     function getCurrentSession() {
         if (sessionStorage.getItem("admin_logged") === "true") {
             return { isAdmin: true, email: ADMIN_EMAIL, uid: "admin_fixed" };
@@ -205,155 +96,231 @@
         if (firebaseUser) return { isAdmin: false, email: firebaseUser.email, uid: firebaseUser.uid };
         return null;
     }
+
     async function logout() {
         sessionStorage.clear();
         await auth.signOut();
         render();
     }
-    // Create user account (admin only)
+
+    // Create user account (Admin only)
     async function createUserAccount(email, password, displayName = "") {
         const session = getCurrentSession();
         if (!session || !session.isAdmin) throw new Error("غير مصرح: فقط المدير يمكنه إنشاء حسابات.");
         const userCred = await auth.createUserWithEmailAndPassword(email, password);
         const uid = userCred.user.uid;
         await usersCollection.doc(uid).set({
-            email, displayName: displayName || email.split('@')[0], createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            role: "individual", promoCode: "KR862022", affId: "4417024", balance: 0, pendingCommission: 0
+            email, displayName: displayName || email.split('@')[0], 
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            role: "individual", promoCode: "KR862022", affId: "4417024", 
+            balance: 0, pendingCommission: 0
         });
-        // init stats for this user
         await statsCollection.doc(uid).set({
-            clicks: 0, registrations: 0, depositors: 0, commission: 0, dailyData: {}
+            clicks: 0, registrations: 0, depositors: 0, commission: 0
         }, { merge: true });
         return { uid, email };
     }
+
     async function fetchAllUsers() {
         const snapshot = await usersCollection.orderBy("createdAt", "desc").get();
         return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     }
+
     async function deleteUserAccount(uid) {
         const session = getCurrentSession();
         if (!session || !session.isAdmin) throw new Error("Unauthorized");
         await usersCollection.doc(uid).delete();
         await statsCollection.doc(uid).delete();
+        // Note: Deleting the Auth user from client side is restricted for security.
     }
-    // Update stats (admin only)
+
     async function updateUserStats(uid, newStats) {
         const session = getCurrentSession();
         if (!session || !session.isAdmin) throw new Error("Admin only");
         await statsCollection.doc(uid).set(newStats, { merge: true });
     }
+
     async function getUserStats(uid) {
         const doc = await statsCollection.doc(uid).get();
-        if (!doc.exists) return { clicks: 0, registrations: 0, depositors: 0, commission: 0, dailyData: {} };
+        if (!doc.exists) return { clicks: 0, registrations: 0, depositors: 0, commission: 0 };
         return doc.data();
     }
+
     async function changeUserPassword(newPassword) {
         const user = auth.currentUser;
-        if (!user) throw new Error("No user");
+        if (!user) throw new Error("No user logged in");
         await user.updatePassword(newPassword);
     }
-    // predefined withdrawal methods
+
+    // Withdrawal Methods (50+)
     const withdrawalMethods = [
         "فودافون كاش", "اتصالات كاش", "أورنج كاش", "وي باي", "إنستا باي", "فوري",
-        "PayPal", "Neteller", "Skrill", "العربية bank", "مصر بنك", "CIB", "QNB", "HSBC", 
+        "PayPal", "Neteller", "Skrill", "البنك الأهلي", "بنك مصر", "CIB", "QNB", "HSBC", 
         "Bitcoin", "Ethereum", "USDT (TRC20)", "Perfect Money", "AdvCash", "WebMoney",
         "SticPay", "MuchBetter", "EcoPayz", "TransferWise", "Ria", "MoneyGram", "بنك الإسكندرية",
-        "بنك مصر", "بنك القاهرة", "بنك بلوم", "كريدي أجريكول", "بنك البركة", "باي بال", "Apple Pay",
-        "Google Pay", "Samsung Pay", "الدفع عند الباب", "كاش يو", "بريد مصر", "البنك الأهلي", 
-        "بنك فيصل الإسلامي", "بنك التعمير", "ويسترن يونيون", "يربا", "Binance Pay", "Coinbase"
-    ].slice(0, 50);
+        "بنك القاهرة", "بنك بلوم", "كريدي أجريكول", "بنك البركة", "Apple Pay", "Google Pay",
+        "Samsung Pay", "كاش يو", "بريد مصر", "بنك فيصل الإسلامي", "ويسترن يونيون", "Binance Pay", "Coinbase"
+    ];
 
-    // Render
-    function render() {
+    // ---------- Main Render Logic ----------
+    async function render() {
         const appDiv = document.getElementById("app");
         const session = getCurrentSession();
+
+        // Login Screen
         if (!session) {
-            appDiv.innerHTML = `<div class="login-card"><div class="logo-area" style="justify-content:center; margin-bottom:20px;"><i class="fas fa-chart-line logo-icon"></i><div class="logo-text">1xBet <span>Partners</span></div></div><h2 class="login-title">تسجيل الدخول</h2><div class="input-group"><input type="text" id="loginEmail" placeholder="البريد الإلكتروني"></div><div class="input-group"><input type="password" id="loginPassword" placeholder="كلمة المرور"></div><button id="doLoginBtn" class="btn">دخول</button><div id="loginError" class="error-msg" style="color:red; margin-top:12px;"></div></div>`;
+            appDiv.innerHTML = `
+                <div class="login-card">
+                    <div class="logo-area" style="justify-content:center; margin-bottom:20px;">
+                        <i class="fas fa-chart-line logo-icon"></i>
+                        <div class="logo-text">1xBet <span>Partners</span></div>
+                    </div>
+                    <h2 class="login-title">تسجيل الدخول</h2>
+                    <div class="input-group"><input type="text" id="loginEmail" placeholder="البريد الإلكتروني / admin"></div>
+                    <div class="input-group"><input type="password" id="loginPassword" placeholder="كلمة المرور"></div>
+                    <button id="doLoginBtn" class="btn">دخول</button>
+                    <div id="loginError" class="error-msg" style="color:red; margin-top:12px;"></div>
+                </div>
+            `;
             document.getElementById("doLoginBtn").onclick = async () => {
                 const email = document.getElementById("loginEmail").value.trim();
                 const pass = document.getElementById("loginPassword").value;
-                try { await loginWithCredentials(email, pass); render(); } 
-                catch(e) { document.getElementById("loginError").innerText = "بيانات غير صحيحة"; }
-            }; return;
-        }
-        if (session.isAdmin) renderAdminPanel(appDiv, session);
-        else renderUserDashboard(appDiv, session);
-    }
-
-    // Admin panel: can edit all stats for any user
-    async function renderAdminPanel(container, session) {
-        let usersList = await fetchAllUsers();
-        let selectedUserId = usersList.length ? usersList[0].id : null;
-        let selectedStats = selectedUserId ? await getUserStats(selectedUserId) : { clicks:0, registrations:0, depositors:0, commission:0 };
-        container.innerHTML = `
-            <div class="header"><div class="logo-area"><i class="fas fa-futbol logo-icon"></i><div class="logo-text">1xBet <span>Partners</span> | لوحة الإدارة</div></div><div><span class="admin-badge"><i class="fas fa-crown"></i> مدير النظام</span><button id="logoutBtnAdmin" class="btn-outline btn" style="width:auto; margin-right:12px;">تسجيل خروج</button></div></div>
-            <div class="stats-grid"><div class="stat-card"><i class="fas fa-users"></i><div class="stat-number">${usersList.length}</div><div>إجمالي الحسابات</div></div></div>
-            <div style="display:flex; gap:20px; flex-wrap:wrap;"><div style="flex:1;"><h3><i class="fas fa-users"></i> حسابات الأفراد</h3><select id="userSelect" style="width:100%; padding:10px; border-radius:1rem;">${usersList.map(u => `<option value="${u.id}" ${selectedUserId===u.id ? 'selected' : ''}>${u.email} (${u.displayName})</option>`).join('')}</select></div></div>
-            <div class="promo-banner" style="margin-top:1rem;"><i class="fas fa-edit"></i> تعديل إحصائيات الشريك المختار</div>
-            <div class="stats-grid"><div class="stat-card"><div>النقرات</div><input type="number" id="editClicks" value="${selectedStats.clicks}" class="form-control" style="width:100%; padding:8px;"></div>
-            <div class="stat-card"><div>التسجيلات</div><input type="number" id="editRegs" value="${selectedStats.registrations}" style="width:100%; padding:8px;"></div>
-            <div class="stat-card"><div>المودعين الجدد</div><input type="number" id="editDepositors" value="${selectedStats.depositors}" style="width:100%; padding:8px;"></div>
-            <div class="stat-card"><div>مبلغ العمولة</div><input type="number" id="editCommission" value="${selectedStats.commission}" style="width:100%; padding:8px;"></div></div>
-            <button id="saveStatsBtn" class="btn" style="width:auto; margin-bottom:1rem;">حفظ التعديلات</button>
-            <div class="create-user-form"><h3><i class="fas fa-user-plus"></i> إنشاء حساب فرد جديد</h3><div class="form-row" style="display:flex; gap:12px; flex-wrap:wrap;"><input type="email" id="newEmail" placeholder="البريد"><input type="text" id="newName" placeholder="الاسم"><input type="password" id="newPass" placeholder="كلمة المرور"><button id="createAccountBtn" class="btn" style="width:auto;">إنشاء</button></div><div id="createMsg"></div></div>
-            <div class="users-table-wrapper"><h3>قائمة الحسابات</h3><table><thead><tr><th>البريد</th><th>الاسم</th><th>حذف</th></tr></thead><tbody>${usersList.map(u => `<tr><td>${escapeHtml(u.email)}</td><td>${escapeHtml(u.displayName)}</td><td><button class="delete-btn" data-uid="${u.id}"><i class="fas fa-trash-alt"></i></button></td></tr>`).join('')}</tbody></table></div>
-            <footer>مدير النظام فقط يمكنه تعديل الإحصائيات وكلمات المرور وإدارة الحسابات.</footer>
-        `;
-        document.getElementById("logoutBtnAdmin").onclick = () => logout();
-        document.getElementById("createAccountBtn").onclick = async () => {
-            const email = document.getElementById("newEmail").value.trim();
-            const pass = document.getElementById("newPass").value.trim();
-            const name = document.getElementById("newName").value.trim();
-            if(!email || !pass) { alert("املأ الحقول"); return; }
-            try { await createUserAccount(email, pass, name); alert("تم إنشاء الحساب"); render(); } catch(e) { alert(e.message); }
-        };
-        document.getElementById("saveStatsBtn").onclick = async () => {
-            const uid = document.getElementById("userSelect").value;
-            const newStats = {
-                clicks: parseInt(document.getElementById("editClicks").value) || 0,
-                registrations: parseInt(document.getElementById("editRegs").value) || 0,
-                depositors: parseInt(document.getElementById("editDepositors").value) || 0,
-                commission: parseFloat(document.getElementById("editCommission").value) || 0
+                try {
+                    await loginWithCredentials(email, pass);
+                    render();
+                } catch(e) {
+                    let msg = "بيانات غير صحيحة";
+                    if (e.code === "auth/user-not-found") msg = "المستخدم غير موجود";
+                    if (e.code === "auth/wrong-password") msg = "كلمة مرور خاطئة";
+                    document.getElementById("loginError").innerText = msg;
+                }
             };
-            await updateUserStats(uid, newStats);
-            alert("تم تحديث الإحصائيات");
-            render();
-        };
-        document.getElementById("userSelect").onchange = () => render();
-        document.querySelectorAll(".delete-btn").forEach(btn => {
-            btn.onclick = async () => { if(confirm("حذف الحساب؟")){ await deleteUserAccount(btn.dataset.uid); render(); } };
-        });
-    }
+            return;
+        }
 
-    // User Dashboard with exact stats, promo code, charts, withdrawal methods, change password
-    async function renderUserDashboard(container, session) {
+        // Admin Panel
+        if (session.isAdmin) {
+            let usersList = await fetchAllUsers();
+            let selectedUserId = usersList.length ? usersList[0].id : null;
+            let selectedStats = selectedUserId ? await getUserStats(selectedUserId) : { clicks:0, registrations:0, depositors:0, commission:0 };
+            
+            appDiv.innerHTML = `
+                <div class="header">
+                    <div class="logo-area"><i class="fas fa-futbol logo-icon"></i><div class="logo-text">1xBet <span>Partners</span> | لوحة الإدارة</div></div>
+                    <div><span class="admin-badge"><i class="fas fa-crown"></i> مدير النظام</span><button id="logoutBtnAdmin" class="btn-outline btn" style="width:auto; margin-right:12px;">تسجيل خروج</button></div>
+                </div>
+                <div class="stats-grid"><div class="stat-card"><i class="fas fa-users"></i><div class="stat-number">${usersList.length}</div><div>إجمالي الحسابات</div></div></div>
+                <div style="margin-bottom:1rem;"><label>اختر حساب المستخدم:</label><select id="userSelect" style="width:100%; padding:10px; border-radius:1rem;">${usersList.map(u => `<option value="${u.id}" ${selectedUserId===u.id ? 'selected' : ''}>${u.email} (${u.displayName})</option>`).join('')}</select></div>
+                <div class="promo-banner" style="background:#042E5F;"><i class="fas fa-edit"></i> تعديل إحصائيات الشريك المختار</div>
+                <div class="stats-grid">
+                    <div class="stat-card"><div>النقرات</div><input type="number" id="editClicks" value="${selectedStats.clicks}" style="width:100%; padding:8px;"></div>
+                    <div class="stat-card"><div>التسجيلات</div><input type="number" id="editRegs" value="${selectedStats.registrations}" style="width:100%; padding:8px;"></div>
+                    <div class="stat-card"><div>المودعين الجدد</div><input type="number" id="editDepositors" value="${selectedStats.depositors}" style="width:100%; padding:8px;"></div>
+                    <div class="stat-card"><div>مبلغ العمولة (دولار)</div><input type="number" id="editCommission" value="${selectedStats.commission}" style="width:100%; padding:8px;"></div>
+                </div>
+                <button id="saveStatsBtn" class="btn" style="width:auto; margin-bottom:1rem;">حفظ التعديلات</button>
+                <div class="create-user-form" style="background:var(--white); border-radius:1.5rem; padding:1rem; margin-bottom:1rem;">
+                    <h3><i class="fas fa-user-plus"></i> إنشاء حساب فرد جديد</h3>
+                    <div style="display:flex; gap:12px; flex-wrap:wrap;"><input type="email" id="newEmail" placeholder="البريد"><input type="text" id="newName" placeholder="الاسم"><input type="password" id="newPass" placeholder="كلمة المرور"><button id="createAccountBtn" class="btn" style="width:auto;">إنشاء</button></div>
+                    <div id="createMsg"></div>
+                </div>
+                <div class="users-table-wrapper"><h3>قائمة الحسابات</h3><table><thead><tr><th>البريد</th><th>الاسم</th><th>حذف</th></tr></thead><tbody>${usersList.map(u => `<tr><td>${escapeHtml(u.email)}</td><td>${escapeHtml(u.displayName)}</td><td><button class="delete-btn" data-uid="${u.id}"><i class="fas fa-trash-alt"></i></button></td></tr>`).join('')}</tbody></table></div>
+                <footer>مدير النظام فقط يمكنه تعديل الإحصائيات وإنشاء الحسابات وحذفها.</footer>
+            `;
+            document.getElementById("logoutBtnAdmin").onclick = () => logout();
+            document.getElementById("createAccountBtn").onclick = async () => {
+                const email = document.getElementById("newEmail").value.trim();
+                const pass = document.getElementById("newPass").value.trim();
+                const name = document.getElementById("newName").value.trim();
+                if(!email || !pass) { alert("املأ البريد وكلمة المرور"); return; }
+                try { await createUserAccount(email, pass, name); alert("تم إنشاء الحساب"); render(); } 
+                catch(e) { alert(e.message); }
+            };
+            document.getElementById("saveStatsBtn").onclick = async () => {
+                const uid = document.getElementById("userSelect").value;
+                const newStats = {
+                    clicks: parseInt(document.getElementById("editClicks").value) || 0,
+                    registrations: parseInt(document.getElementById("editRegs").value) || 0,
+                    depositors: parseInt(document.getElementById("editDepositors").value) || 0,
+                    commission: parseFloat(document.getElementById("editCommission").value) || 0
+                };
+                await updateUserStats(uid, newStats);
+                alert("تم تحديث الإحصائيات");
+                render();
+            };
+            document.getElementById("userSelect").onchange = () => render();
+            document.querySelectorAll(".delete-btn").forEach(btn => {
+                btn.onclick = async () => { if(confirm("حذف الحساب نهائياً؟")){ await deleteUserAccount(btn.dataset.uid); render(); } };
+            });
+            return;
+        }
+
+        // -------------------- USER DASHBOARD --------------------
         const uid = session.uid;
         const userDoc = await usersCollection.doc(uid).get();
         const userData = userDoc.exists ? userDoc.data() : { displayName: session.email, promoCode: "KR862022", affId: "4417024", balance: 0, pendingCommission: 0 };
         let stats = await getUserStats(uid);
-        // chart data mock for demo (from stats)
-        const labels = ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الأسبوع 4'];
-        const regData = [stats.registrations || 0, 0, 0, 0];
-        const depositData = [stats.depositors || 0, 0, 0, 0];
-        container.innerHTML = `
-            <div class="header"><div class="logo-area"><i class="fas fa-trophy logo-icon"></i><div class="logo-text">1xBet <span>Partners</span></div></div><div><span class="role-badge"><i class="fas fa-user"></i> شريك فردي</span><span class="user-greeting">مرحباً ${userData.displayName || session.email}</span><button id="changePassBtn" class="btn-outline btn" style="width:auto; margin:0 5px;"><i class="fas fa-key"></i> تغيير كلمة المرور</button><button id="logoutUserBtn" class="btn-outline btn" style="width:auto;">خروج</button></div></div>
-            <div class="promo-banner"><i class="fas fa-gift"></i> احصل علي 60% من عمليات الايداع التي تسجل برمزك الترويجي عند ايداع 500 جنيه او اكثر!<div class="promo-code">البروموكود الخاص بك: <strong>${userData.promoCode || "KR862022"}</strong></div><div>Aff ID: ${userData.affId || "4417024"}</div></div>
-            <div class="stats-grid"><div class="stat-card"><i class="fas fa-wallet"></i><div class="stat-number">${userData.balance || 0} $</div><div>متاح للسحب</div></div><div class="stat-card"><i class="fas fa-clock"></i><div class="stat-number">${userData.pendingCommission || 0} $</div><div>عمولة معلقة</div></div><div class="stat-card"><div class="stat-number">${stats.commission || 0} $</div><div>مبلغ العمولة (إجمالي)</div></div></div>
-            <div class="stats-grid"><div class="stat-card"><div class="stat-number">0 $</div><div>البارحة</div></div><div class="stat-card"><div class="stat-number">0 $</div><div>الشهر الحالي</div></div><div class="stat-card"><div class="stat-number">0 $</div><div>30 يوم</div></div><div class="stat-card"><div class="stat-number">${stats.commission || 0} $</div><div>المجموع</div></div></div>
-            <div style="background:white; border-radius:1.5rem; padding:1rem; margin-bottom:1rem;"><div style="display:flex; justify-content:space-between; flex-wrap:wrap;"><div><strong>فترة:</strong> شهر 1 &nbsp; <strong>العملة:</strong> USD</div></div></div>
-            <div class="card-title"><i class="fas fa-chart-line"></i> إحصاءات التحويل</div>
-            <div class="filter-buttons"><button class="filter-btn active" data-filter="week">أسبوع واحد</button><button class="filter-btn" data-filter="month">شهر واحد</button><button class="filter-btn" data-filter="all">جميع</button></div>
+        
+        appDiv.innerHTML = `
+            <div class="header">
+                <div class="logo-area"><i class="fas fa-trophy logo-icon"></i><div class="logo-text">1xBet <span>Partners</span></div></div>
+                <div><span class="role-badge"><i class="fas fa-user"></i> شريك فردي</span>
+                <span class="user-greeting">مرحباً ${userData.displayName || session.email}</span>
+                <button id="changePassBtn" class="btn-outline btn" style="width:auto; margin:0 5px;"><i class="fas fa-key"></i> تغيير كلمة المرور</button>
+                <button id="logoutUserBtn" class="btn-outline btn" style="width:auto;">خروج</button></div>
+            </div>
+            <div class="promo-banner">
+                <i class="fas fa-gift"></i> احصل علي 60% من عمليات الايداع التي تسجل برمزك الترويجي عند ايداع 500 جنيه او اكثر!
+                <div class="promo-code">البروموكود الخاص بك: <strong>${userData.promoCode}</strong></div>
+                <div>Aff ID: ${userData.affId}</div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card"><i class="fas fa-wallet"></i><div class="stat-number">${userData.balance || 0} $</div><div>متاح للسحب</div></div>
+                <div class="stat-card"><i class="fas fa-clock"></i><div class="stat-number">${userData.pendingCommission || 0} $</div><div>عمولة معلقة</div></div>
+                <div class="stat-card"><div class="stat-number">${stats.commission || 0} $</div><div>مبلغ العمولة (إجمالي)</div></div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-number">0 $</div><div>البارحة</div></div>
+                <div class="stat-card"><div class="stat-number">0 $</div><div>الشهر الحالي</div></div>
+                <div class="stat-card"><div class="stat-number">0 $</div><div>30 يوم</div></div>
+                <div class="stat-card"><div class="stat-number">${stats.commission || 0} $</div><div>المجموع</div></div>
+            </div>
+            <div style="background:white; border-radius:1.5rem; padding:1rem; margin-bottom:1rem;"><div><strong>فترة:</strong> شهر 1 &nbsp; <strong>العملة:</strong> USD</div></div>
+            <h3>إحصاءات التحويل</h3>
             <div class="stats-grid"><div class="stat-card"><div class="stat-number">${stats.clicks || 0}</div><div>معاينات / نقرات</div></div><div class="stat-card"><div class="stat-number">${stats.clicks || 0}</div><div>روابط مباشرة</div></div></div>
-            <div class="card-title"><i class="fas fa-user-check"></i> إحصاءات التسجيل</div>
-            <div class="stats-grid"><div class="stat-card"><div class="stat-number">${stats.registrations || 0}</div><div>التسجيلات</div></div><div class="stat-card"><div class="stat-number">${stats.depositors || 0}</div><div>المودعين الجدد</div></div><div class="stat-card"><div class="stat-number">${stats.commission || 0} $</div><div>مبلغ العمولة</div></div></div>
+            <h3>إحصاءات التسجيل</h3>
+            <div class="stats-grid"><div class="stat-card"><div class="stat-number">${stats.registrations || 0}</div><div>التسجيلات</div></div><div class="stat-card"><div class="stat-number">${stats.depositors || 0}</div><div>المودعين الجدد</div></div></div>
             <div class="chart-container"><canvas id="statsChart" width="400" height="200"></canvas></div>
-            <div class="users-table-wrapper"><h3>ملخص الاحصائيات</h3><table><thead><tr><th>العملة</th><th>معاينات</th><th>نقرات</th><th>روابط مباشرة</th><th>التسجيلات</th><th>المودعين الجدد</th><th>أرباح شركة</th><th>RS</th><th>CPA</th><th>مبلغ العمولة</th></tr></thead><tbody><tr><td>USD</td><td>${stats.clicks || 0}</td><td>${stats.clicks || 0}</td><td>${stats.clicks || 0}</td><td>${stats.registrations || 0}</td><td>${stats.depositors || 0}</td><td>0</td><td>${stats.commission || 0}</td><td>0</td><td>${stats.commission || 0}</td></tr></tbody></table></div>
-            <div class="withdraw-section"><h3><i class="fas fa-money-bill-wave"></i> طرق السحب (الحد الأدنى 100 دولار)</h3><div class="methods-grid" id="methodsGrid"></div><div class="input-group"><input type="number" id="withdrawAmount" placeholder="المبلغ المراد سحبه (بالدولار)"></div><button id="requestWithdrawBtn" class="btn" style="width:auto;">طلب سحب</button><div id="withdrawMsg" style="margin-top:10px;"></div></div>
+            <div class="users-table-wrapper">
+                <h3>ملخص الاحصائيات</h3>
+                <table><thead><tr><th>العملة</th><th>معاينات</th><th>نقرات</th><th>روابط مباشرة</th><th>التسجيلات</th><th>المودعين الجدد</th><th>أرباح شركة</th><th>RS</th><th>CPA</th><th>مبلغ العمولة</th></tr></thead><tbody>
+                <tr><td>USD</td><td>${stats.clicks || 0}</td><td>${stats.clicks || 0}</td><td>${stats.clicks || 0}</td><td>${stats.registrations || 0}</td><td>${stats.depositors || 0}</td><td>0</td><td>${stats.commission || 0}</td><td>0</td><td>${stats.commission || 0}</td></tr>
+                </tbody></table>
+            </div>
+            <div class="withdraw-section">
+                <h3><i class="fas fa-money-bill-wave"></i> طرق السحب (الحد الأدنى 100 دولار)</h3>
+                <div class="methods-grid" id="methodsGrid"></div>
+                <div class="input-group"><input type="number" id="withdrawAmount" placeholder="المبلغ المراد سحبه (بالدولار)"></div>
+                <button id="requestWithdrawBtn" class="btn" style="width:auto;">طلب سحب</button>
+                <div id="withdrawMsg" style="margin-top:10px;"></div>
+            </div>
             <footer>يمكنك تغيير كلمة المرور فقط. الإحصائيات يتم تعديلها بواسطة الإدارة.</footer>
         `;
-        // render withdrawal methods
+
+        // Load withdrawal methods
         const methodsContainer = document.getElementById("methodsGrid");
         withdrawalMethods.forEach(m => { methodsContainer.innerHTML += `<span class="method-badge"><i class="fas fa-check-circle"></i> ${m}</span>`; });
+
+        // Chart JS
+        const ctx = document.getElementById('statsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: { labels: ['18. مايو', '25. مايو', '1. حزيران', '8. حزيران'], 
+                    datasets: [{ label: 'التسجيلات', data: [stats.registrations || 0, 0, 0, 0], borderColor: '#045ED6' }, 
+                               { label: 'المودعين الجدد', data: [stats.depositors || 0, 0, 0, 0], borderColor: '#00BAFF' }] },
+            options: { responsive: true, maintainAspectRatio: true }
+        });
+
         document.getElementById("logoutUserBtn").onclick = () => logout();
         document.getElementById("changePassBtn").onclick = async () => {
             const newPass = prompt("أدخل كلمة المرور الجديدة (6 أحرف على الأقل)");
@@ -366,22 +333,10 @@
             const amount = parseFloat(document.getElementById("withdrawAmount").value);
             if(isNaN(amount) || amount < 100) { document.getElementById("withdrawMsg").innerText = "الحد الأدنى للسحب هو 100 دولار"; return; }
             if(amount > (userData.balance || 0)) { document.getElementById("withdrawMsg").innerText = "رصيد غير كافٍ"; return; }
-            alert(`تم تقديم طلب سحب بمبلغ ${amount} عبر إحدى الطرق المتاحة. سيتم معالجته قريباً.`);
-            // optional: update balance in firestore
+            alert(`تم تقديم طلب سحب بمبلغ ${amount} سيتم معالجته قريباً.`);
             await usersCollection.doc(uid).update({ balance: firebase.firestore.FieldValue.increment(-amount) });
             render();
         };
-        // Chart.js initialization
-        const ctx = document.getElementById('statsChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: { labels: ['18. مايو', '25. مايو', '1. حزيران', '8. حزيران'], datasets: [{ label: 'التسجيلات', data: [stats.registrations || 0, 0, 0, 0], borderColor: '#045ED6' }, { label: 'المودعين الجدد', data: [stats.depositors || 0, 0, 0, 0], borderColor: '#00BAFF' }] },
-            options: { responsive: true, maintainAspectRatio: true }
-        });
-        // filter buttons dummy
-        document.querySelectorAll(".filter-btn").forEach(btn => {
-            btn.onclick = () => { alert("تصفية تجريبية: البيانات محدثة من قبل الإدارة"); };
-        });
     }
 
     function escapeHtml(str) { return str?.replace(/[&<>]/g, function(m){ return m=='&'?'&amp;': m=='<'?'&lt;':'&gt;'; }) || ''; }
